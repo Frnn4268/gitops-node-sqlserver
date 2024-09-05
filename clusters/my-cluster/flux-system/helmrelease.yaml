@@ -4,15 +4,21 @@ metadata:
   name: node-express-sqlserver
   namespace: default
 spec:
-  releaseName: node-express-sqlserver
   chart:
     spec:
-      chart: ./node-express-sqlserver-chart
       sourceRef:
         kind: HelmRepository
         name: my-helm-repo
         namespace: flux-system
-  interval: 1m
-  valuesFrom:
-    - kind: ConfigMap
-      name: node-express-sqlserver-values
+      interval: 5m
+      chart: node-express-sqlserver
+      version: "1.0.0"
+  values:
+    image:
+      repository: frnn4268/node-express-sqlserver
+      tag: 1.0.0
+    service:
+      type: LoadBalancer
+    sqlserver:
+      sa_password: "my_sa_password"
+      
