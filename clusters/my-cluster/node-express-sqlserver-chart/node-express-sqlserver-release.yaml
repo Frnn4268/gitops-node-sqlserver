@@ -1,0 +1,26 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: node-express-sqlserver
+  namespace: default
+spec:
+  releaseName: node-express-sqlserver
+  chart:
+    spec:
+      chart: ./node-express-sqlserver-chart
+  values:
+    image:
+      repository: frnn4268/node-express-sqlserver
+      tag: "latest"
+    service:
+      type: ClusterIP
+      port: 3000
+    sqlserver:
+      image:
+        repository: mcr.microsoft.com/mssql/server
+        tag: 2019-latest
+      service:
+        port: 1433
+      env:
+        SA_PASSWORD: "your_sa_password"
+        ACCEPT_EULA: "Y"

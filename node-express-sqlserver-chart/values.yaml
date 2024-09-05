@@ -1,0 +1,18 @@
+image:
+  repository: frnn4268/node-express-sqlserver
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 3000
+
+sqlserver:
+  image:
+    repository: mcr.microsoft.com/mssql/server
+    tag: 2019-latest
+  service:
+    port: 1433
+  env:
+    SA_PASSWORD: "your_sa_password"
+    ACCEPT_EULA: "Y"
