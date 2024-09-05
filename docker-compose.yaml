@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  node-app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=sqlserver
+      - DB_NAME=${DB_NAME}
+    depends_on:
+      - sqlserver
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "your_sa_password"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
